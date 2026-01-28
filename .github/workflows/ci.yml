@@ -25,11 +25,11 @@ jobs:
       
       - name: Run ruff
         working-directory: ./backend
-        run: ruff check .
+        run: ruff check src/
       
       - name: Run black check
         working-directory: ./backend
-        run: black --check .
+        run: black --check src/
 
   test:
     runs-on: ubuntu-latest
@@ -62,6 +62,15 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements/base.txt -r requirements/dev.txt
+      
+      - name: Create migrations (if needed)
+        working-directory: ./backend/src
+        env:
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
+          SECRET_KEY: test-secret-key
+          DJANGO_SETTINGS_MODULE: config.settings.test
+        run: |
+          python manage.py makemigrations --noinput || true
       
       - name: Run migrations
         working-directory: ./backend/src

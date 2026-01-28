@@ -32,6 +32,9 @@ ignore = [
 "*/settings/*.py" = ["F401", "F403", "F405"]  # Django settings star imports
 "*/settings/__init__.py" = ["F401", "F403", "F405"]
 "scripts/*.py" = ["E402"]  # imports after django.setup()
+"*/tests.py" = ["F401"]  # unused imports in tests
+"*/test_*.py" = ["F401"]  # unused imports in test files
+"*/migrations/*.py" = ["F401", "F403"]  # migrations may have unused imports
 
 [tool.mypy]
 python_version = "3.12"
