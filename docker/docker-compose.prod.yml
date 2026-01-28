@@ -1,0 +1,11 @@
+# Production overrides
+# Использовать: docker compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml up
+
+services:
+  backend:
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+      DJANGO_ENV: production
+      DEBUG: "False"
+      AUTO_MIGRATE: "false"
+    # В prod используем gunicorn (уже в entrypoint.sh)

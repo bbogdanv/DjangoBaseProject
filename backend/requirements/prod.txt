@@ -1,0 +1,5 @@
+# Production Requirements
+-r base.txt
+
+# Monitoring (опционально, graceful degradation)
+sentry-sdk>=2.7,<3.0

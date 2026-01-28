@@ -1,0 +1,11 @@
+# Development overrides
+# Использовать: docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up
+
+services:
+  backend:
+    volumes:
+      - ../backend/src:/app/src:ro
+    environment:
+      DEBUG: "True"
+      AUTO_MIGRATE: "true"
+    command: python manage.py runserver 0.0.0.0:8000

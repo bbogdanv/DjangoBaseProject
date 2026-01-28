@@ -1,0 +1,14 @@
+# Django Base Project - Celery Requirements (Optional)
+# Используйте для проектов с фоновыми задачами
+#
+# Установка: pip install -r requirements/celery.txt
+# Также требуется Redis сервер (см. docker-compose.yml)
+
+# Celery - распределенная очередь задач
+celery>=5.3,<6.0
+
+# Redis - брокер сообщений для Celery
+redis>=5.0,<6.0
+
+# Django Celery Beat - периодические задачи (опционально)
+# django-celery-beat>=2.5,<3.0
