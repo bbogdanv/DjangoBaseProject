@@ -2,8 +2,9 @@
 Настройки для разработки.
 Вся env-логика здесь.
 """
-from .base import *
 import environ
+
+from .base import *
 
 env = environ.Env(
     DEBUG=(bool, True),

@@ -2,6 +2,7 @@
 URL patterns for core app.
 """
 from django.urls import path
+
 from . import health
 
 app_name = 'core'

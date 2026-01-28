@@ -2,6 +2,7 @@
 Tests for users app.
 """
 from django.contrib.auth import get_user_model
+from django.db import IntegrityError
 from django.test import TestCase
 
 
@@ -48,7 +49,7 @@ class UserModelTestCase(TestCase):
             email='unique@example.com',
             password='testpass123'
         )
-        with self.assertRaises(Exception):
+        with self.assertRaises(IntegrityError):
             self.User.objects.create_user(
                 email='unique@example.com',
                 password='testpass123'

@@ -2,8 +2,9 @@
 Настройки для production.
 Все security settings включены.
 """
-from .base import *
 import environ
+
+from .base import *
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -83,11 +84,11 @@ CSRF_COOKIE_HTTPONLY = True
 SENTRY_DSN = env.str('SENTRY_DSN', default='')
 if SENTRY_DSN and not DEBUG:
     try:
+        import logging
+
         import sentry_sdk
         from sentry_sdk.integrations.django import DjangoIntegration
         from sentry_sdk.integrations.logging import LoggingIntegration
-
-        import logging
         sentry_sdk.init(
             dsn=SENTRY_DSN,
             integrations=[
