@@ -1,6 +1,7 @@
 """
 Health check endpoints для мониторинга.
 """
+
 from django.db import connection
 from django.http import JsonResponse
 from django.views.decorators.cache import never_cache
@@ -28,7 +29,4 @@ def readiness_check(request):
         connection.ensure_connection()
         return JsonResponse({"status": "ready"})
     except Exception as e:
-        return JsonResponse(
-            {"status": "not ready", "error": str(e)},
-            status=503
-        )
+        return JsonResponse({"status": "not ready", "error": str(e)}, status=503)

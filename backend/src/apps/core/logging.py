@@ -1,6 +1,7 @@
 """
 Custom logging formatters and filters.
 """
+
 import json
 import logging
 import threading
@@ -12,7 +13,7 @@ _thread_local = threading.local()
 
 def get_request_id():
     """Получить request ID из thread-local storage"""
-    return getattr(_thread_local, 'request_id', None)
+    return getattr(_thread_local, "request_id", None)
 
 
 def set_request_id(request_id):
@@ -26,7 +27,7 @@ class RequestIDFilter(logging.Filter):
     """
 
     def filter(self, record):
-        record.request_id = get_request_id() or 'no-request-id'
+        record.request_id = get_request_id() or "no-request-id"
         return True
 
 
@@ -38,32 +39,49 @@ class JSONFormatter(logging.Formatter):
 
     def format(self, record):
         log_data = {
-            'timestamp': datetime.utcnow().isoformat() + 'Z',
-            'level': record.levelname,
-            'logger': record.name,
-            'message': record.getMessage(),
-            'module': record.module,
-            'function': record.funcName,
-            'line': record.lineno,
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+            "module": record.module,
+            "function": record.funcName,
+            "line": record.lineno,
         }
 
         # Добавляем request_id, если есть
-        request_id = getattr(record, 'request_id', None)
+        request_id = getattr(record, "request_id", None)
         if request_id:
-            log_data['request_id'] = request_id
+            log_data["request_id"] = request_id
 
         # Добавляем exception info, если есть
         if record.exc_info:
-            log_data['exception'] = self.formatException(record.exc_info)
+            log_data["exception"] = self.formatException(record.exc_info)
 
         # Добавляем extra fields
         for key, value in record.__dict__.items():
             if key not in [
-                'name', 'msg', 'args', 'created', 'filename', 'funcName',
-                'levelname', 'levelno', 'lineno', 'module', 'msecs',
-                'message', 'pathname', 'process', 'processName', 'relativeCreated',
-                'thread', 'threadName', 'exc_info', 'exc_text', 'stack_info',
-                'request_id'
+                "name",
+                "msg",
+                "args",
+                "created",
+                "filename",
+                "funcName",
+                "levelname",
+                "levelno",
+                "lineno",
+                "module",
+                "msecs",
+                "message",
+                "pathname",
+                "process",
+                "processName",
+                "relativeCreated",
+                "thread",
+                "threadName",
+                "exc_info",
+                "exc_text",
+                "stack_info",
+                "request_id",
             ]:
                 log_data[key] = value
 

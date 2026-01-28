@@ -1,6 +1,7 @@
 """
 Tests for core app.
 """
+
 from django.test import Client, TestCase
 
 
@@ -12,12 +13,12 @@ class HealthCheckTestCase(TestCase):
 
     def test_health_check(self):
         """Test health endpoint"""
-        response = self.client.get('/health/')
+        response = self.client.get("/health/")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['status'], 'ok')
+        self.assertEqual(response.json()["status"], "ok")
 
     def test_readiness_check(self):
         """Test readiness endpoint"""
-        response = self.client.get('/readiness/')
+        response = self.client.get("/readiness/")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['status'], 'ready')
+        self.assertEqual(response.json()["status"], "ready")
