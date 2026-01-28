@@ -6,7 +6,6 @@ import logging
 import threading
 from datetime import datetime
 
-
 # Thread-local storage для request ID
 _thread_local = threading.local()
 
