@@ -14,12 +14,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Third party
     'rest_framework',
     'corsheaders',
     'whitenoise.runserver_nostatic',
-    
+
     # Local apps
     'apps.core',
     'apps.users',

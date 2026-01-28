@@ -2,15 +2,17 @@
 Custom User model with email as primary identifier.
 """
 import uuid
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+
 from .managers import UserManager
 
 
 class User(AbstractUser):
     """
     Кастомная User модель с email как primary identifier.
-    
+
     Username автогенерируется, если не задан явно.
     Это обеспечивает совместимость с Django ecosystem (admin, createsuperuser),
     но email используется для аутентификации.
@@ -39,7 +41,7 @@ class User(AbstractUser):
         auto_now=True,
         verbose_name='Дата обновления'
     )
-    
+
     # Username делаем опциональным, но оставляем для совместимости
     username = models.CharField(
         max_length=150,
@@ -48,12 +50,12 @@ class User(AbstractUser):
         blank=True,
         db_index=True
     )
-    
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-    
+
     objects = UserManager()
-    
+
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
@@ -62,10 +64,10 @@ class User(AbstractUser):
             models.Index(fields=['email']),
             models.Index(fields=['username']),
         ]
-    
+
     def __str__(self):
         return self.email
-    
+
     def save(self, *args, **kwargs):
         """Автогенерация username, если не задан"""
         if not self.username:
@@ -78,9 +80,9 @@ class User(AbstractUser):
                 base_username = base_username[:50]
             else:
                 base_username = 'user'
-            
+
             # Добавляем UUID для уникальности
             unique_suffix = uuid.uuid4().hex[:12]
             self.username = f"{base_username}_{unique_suffix}"
-        
+
         super().save(*args, **kwargs)

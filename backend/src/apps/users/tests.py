@@ -1,8 +1,8 @@
 """
 Tests for users app.
 """
-from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.test import TestCase
 
 
 class UserModelTestCase(TestCase):
@@ -22,7 +22,7 @@ class UserModelTestCase(TestCase):
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
         self.assertIsNotNone(user.username)  # Username должен быть автогенерирован
-    
+
     def test_username_autogeneration(self):
         """Test username autogeneration"""
         user = self.User.objects.create_user(
@@ -31,7 +31,7 @@ class UserModelTestCase(TestCase):
         )
         self.assertIsNotNone(user.username)
         self.assertIn('autogen', user.username.lower())
-    
+
     def test_create_superuser(self):
         """Test creating superuser"""
         user = self.User.objects.create_superuser(
@@ -41,7 +41,7 @@ class UserModelTestCase(TestCase):
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_active)
-    
+
     def test_email_unique(self):
         """Test email uniqueness"""
         self.User.objects.create_user(

@@ -25,7 +25,7 @@ class RequestIDFilter(logging.Filter):
     """
     Logging filter для добавления request_id в каждую запись лога.
     """
-    
+
     def filter(self, record):
         record.request_id = get_request_id() or 'no-request-id'
         return True
@@ -36,7 +36,7 @@ class JSONFormatter(logging.Formatter):
     JSON formatter для structured logging.
     Используется в production для интеграции с log aggregators.
     """
-    
+
     def format(self, record):
         log_data = {
             'timestamp': datetime.utcnow().isoformat() + 'Z',
@@ -47,16 +47,16 @@ class JSONFormatter(logging.Formatter):
             'function': record.funcName,
             'line': record.lineno,
         }
-        
+
         # Добавляем request_id, если есть
         request_id = getattr(record, 'request_id', None)
         if request_id:
             log_data['request_id'] = request_id
-        
+
         # Добавляем exception info, если есть
         if record.exc_info:
             log_data['exception'] = self.formatException(record.exc_info)
-        
+
         # Добавляем extra fields
         for key, value in record.__dict__.items():
             if key not in [
@@ -67,5 +67,5 @@ class JSONFormatter(logging.Formatter):
                 'request_id'
             ]:
                 log_data[key] = value
-        
+
         return json.dumps(log_data)

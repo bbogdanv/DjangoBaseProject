@@ -86,7 +86,7 @@ if SENTRY_DSN and not DEBUG:
         import sentry_sdk
         from sentry_sdk.integrations.django import DjangoIntegration
         from sentry_sdk.integrations.logging import LoggingIntegration
-        
+
         import logging
         sentry_sdk.init(
             dsn=SENTRY_DSN,

@@ -1,7 +1,12 @@
 """
 Настройки для тестирования.
 """
+import os
+
 from .base import *
+
+# SECRET_KEY для тестов (из env в CI, иначе дефолт)
+SECRET_KEY = os.environ.get('SECRET_KEY', 'test-secret-key-for-pytest')
 
 # Используем SQLite для тестов (быстрее)
 DATABASES = {

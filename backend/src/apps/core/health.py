@@ -1,10 +1,10 @@
 """
 Health check endpoints для мониторинга.
 """
-from django.http import JsonResponse
 from django.db import connection
-from django.views.decorators.http import require_http_methods
+from django.http import JsonResponse
 from django.views.decorators.cache import never_cache
+from django.views.decorators.http import require_http_methods
 
 
 @require_http_methods(["GET"])
